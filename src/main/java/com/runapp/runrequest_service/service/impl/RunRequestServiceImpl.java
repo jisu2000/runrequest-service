@@ -1,5 +1,6 @@
 package com.runapp.runrequest_service.service.impl;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,10 @@ public class RunRequestServiceImpl implements RunRequestService {
         runReq.setId((String) runDataMap.getOrDefault("id", null)); // Cast to String
         
         RunEO goingToSaved = modelMapper.map(runReq, RunEO.class);
-        
+
+
+        goingToSaved.setDateTimeUtc(LocalDateTime.now());
+    
         goingToSaved.setUserId(userDTO.getId());
         goingToSaved.setMapPictureUrl(imageMap.get("url").toString());
         RunEO saved = runrepo.save(goingToSaved);
